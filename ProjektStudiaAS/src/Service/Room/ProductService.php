@@ -37,7 +37,7 @@ class ProductService extends DefaultService
 
     public function getAvailableRooms(): array
     {
-        return $this->productRepository->findBy(['available' => true]);
+        return $this->productRepository->findAll();
     }
 
     public function getProduct($id): ?array

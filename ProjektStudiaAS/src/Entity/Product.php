@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Table(name: 'products')]
 class Product
 {
     #[ORM\Id]
@@ -25,8 +26,7 @@ class Product
     #[ORM\Column(type: 'string')]
     private string $mainImage;
 
-    #[ORM\ManyToOne(targetEntity: ProductType::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: ProductType::class, inversedBy: 'product_type_id')]
     private ?ProductType $productType = null;
 
     public function getId(): ?int

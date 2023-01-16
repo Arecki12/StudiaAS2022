@@ -6,6 +6,7 @@ use App\Repository\ProductPriceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductPriceRepository::class)]
+#[ORM\Table(name: 'product_prices')]
 class ProductPrice
 {
 
