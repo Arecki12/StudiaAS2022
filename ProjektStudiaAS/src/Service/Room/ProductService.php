@@ -3,8 +3,10 @@
 namespace App\Service\Room;
 
 use App\Entity\Product;
+use App\Repository\OrderRepository;
 use App\Repository\ProductPriceRepository;
 use App\Repository\ProductRepository;
+use App\Repository\ProductTypeRepository;
 use App\Service\DatabaseService;
 use App\Service\DefaultService;
 use Psr\Log\LoggerInterface;
@@ -24,7 +26,9 @@ class ProductService extends DefaultService
         ParameterBagInterface  $parameterBag,
         Security               $security,
         ProductRepository      $productRepository,
-        ProductPriceRepository $productPriceRepository
+        ProductPriceRepository $productPriceRepository,
+        ProductTypeRepository  $productTypeRepository,
+        OrderRepository        $orderRepository,
     )
     {
         $this->loggerInterface = $loggerInterface;
@@ -33,6 +37,8 @@ class ProductService extends DefaultService
         $this->security = $security;
         $this->productRepository = $productRepository;
         $this->productPriceRepository = $productPriceRepository;
+        $this->productTypeRepository = $productTypeRepository;
+        $this->orderRepository = $orderRepository;
     }
 
     public function getAvailableRooms(): array
@@ -43,11 +49,14 @@ class ProductService extends DefaultService
     public function getProduct($id): ?array
     {
         $product = $this->productRepository->find($id);
-        $productPrices = $this->productPriceRepository->findBy(['product' => $product]);
+        $productType = $product->getProductType();
+        $productPrices = $this->productPriceRepository->findOneBy(['product' => $product]);
 
         return [
             'product' => $product,
-            'productPrices' => $productPrices
+            'productPrices' => $productPrices,
+            'productType' => $productType,
+            'availableFrom' => $this->orderRepository->findOneBy(['product' => $product])->getEndDatetime()->format('Y-m-d'),
         ];
     }
 }

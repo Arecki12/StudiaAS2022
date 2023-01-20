@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class RegisterController extends DefaultController
 {
@@ -36,7 +37,7 @@ class RegisterController extends DefaultController
     public function __construct(
         UserPasswordHasherInterface $passwordHasher,
         UserRepository $userRepository,
-        DatabaseService $databaseService
+        DatabaseService $databaseService,
     ){
         $this->passwordHasher = $passwordHasher;
         $this->userRepository = $userRepository;

@@ -5,7 +5,7 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
     <div class="container">
-    <form action="{{ path('app_register') }}" method="POST">
+    <form action="/create-room" method="POST">
         <label for="username">Username:</label>
         <input type="text" class="form-control" id="username" name="_username" />
 

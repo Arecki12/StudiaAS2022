@@ -1,7 +1,75 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} Panel administracyjny {% endblock %}
+
 {% block body %}
-    <main role="main">
-        <p> Zalogowany </p>
-    </main>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3> Lista użytkowników </h3>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Utworzono: </th>
+                <th scope="col">Zaktualizowano: </th>
+                <th scope="col">Edytował: </th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <th scope="row">{{ user.id }}</th>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td>{{ user.createdAt|date("d/m/Y H:i:s") }}</td>
+                    <td>{{ user.updatedAt|date("d/m/Y H:i:s") }}</td>
+                    <td>{{ user.editedBy }}</td>
+                    <td><a href="/edit-user/{{ user.id }}">Edytuj</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-12">
+                <h3> Lista obiektów </h3>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Opis</th>
+                <th scope="col">Krótki opis</th>
+                <th scope="col">Zdjęcie: </th>
+                <th scope="col">Typ produktu: </th>
+                <th scope="col">Cena: </th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <th scope="row">{{ product.id }}</th>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description|slice(0, 15) ~ '...'  }}</td>
+                    <td>{{ product.shortDescription}}</td>
+                    <td><img src="{{ product.mainImage }}"/></td>
+                    <td>{{ product.productType.name }}</td>
+                    <td></td>
+                    <td><a href="/edit-room/{{ product.id }}">Edytuj</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

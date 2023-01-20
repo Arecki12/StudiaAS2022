@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main role="main">
+
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Informacje o pokoju {{ room.product.name }}</h1>
+
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <img src="{{ room.product.mainImage }}" alt="">
+                    <p class="lead text-muted">Dostępny od {{ room.product.name }} .</p>
+                    <p>Opis: {{ room.product.description }}</p>
+                    <p>Cena: {{ room.productPrices.price }} {{ room.productPrices.currency }}</p>
+                    <br>
+                    <br>
+                    <p>Wybierz od kiedy chcesz zarezerwować pokój: </p>
+                    <form action="/book/{{ room.product.id }}" method="POST">
+                        <input type="date" min="{{ room.availableFrom }}" name="dateFrom">
+                        <input class="btn btn-success" type="submit" value="Zarezerwuj">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

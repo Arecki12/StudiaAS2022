@@ -41,6 +41,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: "updated_at", type: 'datetime', nullable: true)]
     private ?DateTimeInterface $updatedAt;
 
+    #[ORM\Column(name: "edited_by", type: 'string', length: 100, nullable: true)]
+    private ?string $editedBy = null;
+
+    /**
+     * @return string|null
+     */
+    public function getEditedBy(): ?string
+    {
+        return $this->editedBy;
+    }
+
+    /**
+     * @param string|null $editedBy
+     */
+    public function setEditedBy(?string $editedBy): void
+    {
+        $this->editedBy = $editedBy;
+    }
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -99,6 +120,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getIsAdmin(): bool
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
+    }
     /**
      * @see PasswordAuthenticatedUserInterface
      */

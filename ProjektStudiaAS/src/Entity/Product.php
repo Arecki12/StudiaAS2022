@@ -24,7 +24,7 @@ class Product
     private ?string $shortDescription = null;
 
     #[ORM\Column(type: 'string')]
-    private string $mainImage;
+    private ?string $mainImage;
 
     #[ORM\ManyToOne(targetEntity: ProductType::class, inversedBy: 'product_type_id')]
     private ?ProductType $productType = null;
@@ -58,12 +58,12 @@ class Product
         return $this;
     }
 
-    public function getMainImage(): string
+    public function getMainImage(): ?string
     {
         return $this->mainImage;
     }
 
-    public function setMainImage(string $mainImage): self
+    public function setMainImage(?string $mainImage): self
     {
         $this->mainImage = $mainImage;
 

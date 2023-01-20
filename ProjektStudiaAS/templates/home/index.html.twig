@@ -6,14 +6,13 @@
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Available rooms</h1>
-                {% if app.user == null %}
-                    <a href="/register" class="btn btn-primary my-2">Register</a>
-                    <a href="/login" class="btn btn-secondary my-2">Login</a>
-                {% endif %}
-                {% if app.user != null %}
-                    <a href="/logout" class="btn btn-primary my-2">Logout</a>
-                {% endif %}
-                </p>
+{#                {% if app.user == null %}#}
+{#                    <a href="/register" class="btn btn-primary my-2">Register</a>#}
+{#                    <a href="/login" class="btn btn-secondary my-2">Login</a>#}
+{#                {% endif %}#}
+{#                {% if app.user != null %}#}
+{#                    <a href="/logout" class="btn btn-primary my-2">Logout</a>#}
+{#                {% endif %}#}
             </div>
         </section>
 
@@ -24,15 +23,18 @@
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
                             <h2>{{ availableRoom.name }}</h2>
-                            <img class="card-img-top" src="" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">{{ availableRoom.description }}</p>
+                            <img class="card-img-top" src="{{ availableRoom.mainImage }}" alt="Card image cap">
+                            <div class="card-body" style="min-height: 200px;">
+                                <p class="card-text">{{ availableRoom.shortDescription }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Book now</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">More informations</button>
-                                    </div>
-                                    <small class="text-muted">Price:  EUR</small>
+                                    {% if is_granted("ROLE_USER") %}
+                                        <div class="btn-group">
+                                            <a href="/show/{{ availableRoom.id }}" class="btn btn-sm btn-outline-secondary">More informations</a>
+                                        </div>
+                                    {% else %}
+                                        <a href="/login" class="p-1">Zaloguj się aby zobaczyć content</a>
+                                    {% endif %}
+
                                 </div>
                             </div>
                         </div>
