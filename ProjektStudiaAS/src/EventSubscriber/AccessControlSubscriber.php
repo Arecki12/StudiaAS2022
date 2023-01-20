@@ -26,13 +26,13 @@ class AccessControlSubscriber implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-        $ip = $event->getRequest()->getClientIp();
-        $isSlackBotCalling = str_contains($event->getRequest()->getPathInfo(), '/slack/');
-
-        $allowedIps = $this->parameterBagInterface->get('allowed_ips');
-        if (!in_array($ip, explode(',', $allowedIps)) && !$isSlackBotCalling) {
-            throw new AccessDeniedHttpException("Access denied for IP: $ip");
-        }
+//        $ip = $event->getRequest()->getClientIp();
+//        $isSlackBotCalling = str_contains($event->getRequest()->getPathInfo(), '/slack/');
+//
+//        $allowedIps = $this->parameterBagInterface->get('allowed_ips');
+//        if (!in_array($ip, explode(',', $allowedIps)) && !$isSlackBotCalling) {
+//            throw new AccessDeniedHttpException("Access denied for IP: $ip");
+//        }
     }
 
     /**
