@@ -52,11 +52,18 @@ class ProductService extends DefaultService
         $productType = $product->getProductType();
         $productPrices = $this->productPriceRepository->findOneBy(['product' => $product]);
 
+        $availableRoom = $this->orderRepository->findOneBy(['product' => $product]);
+
+        if (!empty($availableRoom)) {
+            $availableRoom = $availableRoom->getEndDatetime()->format('Y-m-d');
+        } else {
+            $availableRoom = null;
+        }
         return [
             'product' => $product,
             'productPrices' => $productPrices,
             'productType' => $productType,
-            'availableFrom' => $this->orderRepository->findOneBy(['product' => $product])->getEndDatetime()->format('Y-m-d'),
+            'availableFrom' => $availableRoom,
         ];
     }
 }

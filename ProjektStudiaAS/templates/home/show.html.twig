@@ -21,7 +21,11 @@
                     <br>
                     <p>Wybierz od kiedy chcesz zarezerwować pokój: </p>
                     <form action="/book/{{ room.product.id }}" method="POST">
-                        <input type="date" min="{{ room.availableFrom }}" name="dateFrom">
+                        {% if availableFrom is not null %}
+                            <input type="date" min="{{ room.availableFrom }}" name="dateFrom">
+                        {% else %}
+                            <input type="date" name="dateFrom">
+                        {% endif %}
                         <input class="btn btn-success" type="submit" value="Zarezerwuj">
                     </form>
                 </div>
