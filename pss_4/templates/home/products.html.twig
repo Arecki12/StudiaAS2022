@@ -1,0 +1,26 @@
+<div id="productsResult" class="album py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            {% for availableRoom in availableRooms %}
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <h2>{{ availableRoom.name }}</h2>
+                        <img class="card-img-top" src="{{ availableRoom.mainImage }}" alt="Card image cap">
+                        <div class="card-body" style="min-height: 200px;">
+                            <p class="card-text">{{ availableRoom.shortDescription }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                {% if is_granted("ROLE_USER") %}
+                                    <div class="btn-group">
+                                        <a href="/show/{{ availableRoom.id }}" class="btn btn-sm btn-outline-secondary">More informations</a>
+                                    </div>
+                                {% else %}
+                                    <a href="/login" class="p-1">Zaloguj się aby zobaczyć content</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

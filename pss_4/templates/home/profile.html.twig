@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Moje zamowienia {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3> Złożone zamówienia </h3>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ID zamówienia</th>
+                <th scope="col">Czas rozpoczęcia</th>
+                <th scope="col">Czas zakończenia</th>
+                <th scope="col">Zamówienie</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <th scope="row">{{ order.id }}</th>
+                    <td>{{ order.orderHash }}</td>
+                    <td>{{ order.startDateTime|date("d/m/Y") }}</td>
+                    <td>{{ order.endDateTime|date("d/m/Y") }}</td>
+                    <td>{{ order.product.name }}</td>
+                    <td><a href="/show/{{ order.product.id }}">Zobacz pokój</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-12">
+                <h3> Transakcje </h3>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Sposób płatności</th>
+                <th scope="col">Zapłacono za</th>
+                <th scope="col">Kwota</th>
+                <th scope="col">Waluta</th>
+                <th scope="col">Data płatności</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <th scope="row">{{ transaction.id }}</th>
+                    <td>{{ transaction.paymentType }}</td>
+                    <td>{{ transaction.order.product.name }}</td>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.currency }}</td>
+                    <td>{{ transaction.createdAt|date("d/m/Y") }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

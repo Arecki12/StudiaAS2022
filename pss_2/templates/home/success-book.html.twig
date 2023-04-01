@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+            <h4 class="d-flex flex-column">
+                <span class="text-muted">Sukces! Rezerwacja przebiegła pomyślnie. Oto twoje dane:</span>
+                <p>ID zamówienia: {{ order.orderHash }}</p>
+                <p>Rozpoczęcie: {{ order.startDatetime|date("d/m/Y") }}</p>
+            </h4>
+
+
+            <div class="input-group">
+                <div class="input-group-append">
+                    <p>Sprawdz w profilu czy twoje zamówienie jest widoczne!</p>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+{% endblock %}

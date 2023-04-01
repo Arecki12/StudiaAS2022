@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <form action="/edit-room/{{ product.id }}" method="POST">
+            <label for="username">Name:</label>
+            <input type="text" class="form-control" value="{{ product.name }}" id="name" name="_name"/>
+
+            <label for="description">Description:</label>
+            <input type="text" class="form-control" value="{{ product.description }}" id="description" name="_description"/>
+
+            <label for="description">Short Description:</label>
+            <input type="text" class="form-control" value="{{ product.shortDescription }}" id="shortDescription" name="_shortDescription"/>
+
+            <label for="productType">Typ:</label>
+            <select name="_productType" id="productType">
+                {% for productType in productTypes %}
+                    <option value="{{ productType.id }}"
+                            {% if productTypeId == productType.id %} selected {% endif %}
+                    >{{ productType.name }}</option>
+                {% endfor %}
+            </select>
+
+
+            <input type="hidden" name="token" value="{{ csrf_token('app_register') }}"/>
+
+            <button class="btn btn-lg btn-primary" type="submit">Edit room</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+    <form action="/edit-user/{{ user.id }}" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" value="{{ user.name }}" id="username" name="_username" />
+
+        <label for="username">Email:</label>
+        <input type="email" class="form-control" value="{{ user.email }}"  id="email" name="_email" />
+
+        <label for="grantAdmin">Nadaj uprawnienia admina</label>
+            {% if user.IsAdmin  %}
+                <input type="checkbox" id="grantAdmin" name="_grantAdmin" checked />
+            {% else %}
+                <input type="checkbox" id="grantAdmin" name="_grantAdmin" />
+            {% endif %}
+        <input type="hidden" name="token" value="{{ csrf_token('app_register') }}"/>
+
+        <button class="btn btn-lg btn-primary" type="submit">Edit user</button>
+    </form>
+    </div>
+{% endblock %}
